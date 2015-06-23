@@ -47,7 +47,10 @@ gem "active_model_serializers"
 gem "devise"
 
 gem "sabisu_rails", github: "IcaliaLabs/sabisu-rails"
-gem "compass-rails"
+
+# This version had to be fixed to this version due to errors with the gem
+# See: https://github.com/rails/sass-rails/issues/324
+gem "compass-rails", "2.0.2"
 gem "furatto"
 gem "font-awesome-rails"
 gem "simple_form"
