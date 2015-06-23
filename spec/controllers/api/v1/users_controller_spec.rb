@@ -90,5 +90,14 @@ describe Api::V1::UsersController do
         expect(user_response[:errors][:email]).to include("is invalid")
       end
     end
-  end 
+  end
+
+  describe "DELETE #destroy" do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      delete :destroy, { id: @user.id }
+    end
+
+    it { should respond_with 204 }
+  end
 end
