@@ -13,7 +13,7 @@ module Request
 
     def api_response_format(format = Mime::JSON)
       request.headers['Accept'] = "#{request.headers['Accept']},#{format}"
-      request.headers['Cotent-Type'] = format.to_s
+      request.headers['Content-Type'] = format.to_s
     end
 
     def include_default_accept_headers
