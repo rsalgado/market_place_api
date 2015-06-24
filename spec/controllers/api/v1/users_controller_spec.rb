@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe Api::V1::UsersController do
-  before(:each) { request.headers['Accept'] = 'application/vnd.marketplace.v1' }
+  # Note: some headers are being added before every controller's request; check `spec_helper.rb` for more info
 
   describe "GET #show" do
     before(:each) do
       @user = FactoryGirl.create(:user)
-      get :show, { id: @user.id, format: :json }
+      get :show, { id: @user.id}
     end
     
     it { should respond_with 200 }
@@ -21,7 +21,7 @@ describe Api::V1::UsersController do
     context "when is successfully created" do
       before(:each) do
         @users_attributes = FactoryGirl.attributes_for :user
-        post :create, { user: @users_attributes }, format: :json
+        post :create, { user: @users_attributes }
       end
 
       it { should respond_with 201 }
@@ -36,7 +36,7 @@ describe Api::V1::UsersController do
       before(:each) do
         # Note that email is not being included
         @invalid_user_attributes = { password: "12345678", password_confirmation: "12345678" }
-        post :create, { user: @invalid_user_attributes }, format: :json
+        post :create, { user: @invalid_user_attributes }
       end
 
       it { should respond_with 422 }
@@ -58,8 +58,7 @@ describe Api::V1::UsersController do
       before(:each) do
         @user = FactoryGirl.create(:user)
         patch :update, { id: @user.id, 
-                         user: { email: "newmail@example.com" } }, 
-                       format: :json
+                         user: { email: "newmail@example.com" } }
       end
 
       it { should respond_with 200 }
@@ -74,8 +73,7 @@ describe Api::V1::UsersController do
       before(:each) do
         @user = FactoryGirl.create(:user)
         patch :update, { id: @user.id,
-                         user: { email: "bademail.com" } },
-                       format: :json
+                         user: { email: "bademail.com" } }
       end
 
       it { should respond_with 422 }
