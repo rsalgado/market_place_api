@@ -2,7 +2,6 @@ require 'api_constraints'
 
 Rails.application.routes.draw do
   mount SabisuRails::Engine => "/sabisu_rails"
-  devise_for :users
   
   # API definition
   namespace :api, defaults: { format: :json },
@@ -14,4 +13,7 @@ Rails.application.routes.draw do
       resources :users, only: [:show, :create, :update, :destroy]
     end
   end
+
+  # Moved down to avoid collisions with Users controller (here it has lower priority)
+  devise_for :users
 end
