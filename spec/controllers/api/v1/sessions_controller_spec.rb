@@ -34,4 +34,14 @@ describe Api::V1::SessionsController do
       end
     end
   end
+
+  describe "DELETE #destroy" do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      #sign_in(@user, store: false)   # This is giving an exception; Not sure if this works correctly
+      delete :destroy, id: @user.auth_token
+    end
+
+    it { should respond_with 204 }
+  end
 end
