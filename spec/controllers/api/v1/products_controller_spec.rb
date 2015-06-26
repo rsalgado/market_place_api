@@ -13,6 +13,11 @@ describe Api::V1::ProductsController do
       product_response = json_response[:product]
       expect(product_response[:title]).to eql @product.title
     end
+
+    it "has the user as a embedded object" do
+      product_response = json_response[:product]
+      expect(product_response[:user][:email]).to eql @product.user.email
+    end
   end
 
   describe "GET #index" do
@@ -26,6 +31,13 @@ describe Api::V1::ProductsController do
     it "returns 4 records from the database" do
       products_response = json_response
       expect(products_response[:products].size).to eq(4)
+    end
+
+    it "returns the user object into each product" do
+      products_response = json_response[:products]
+      products_response.each do |product_response|
+        expect(product_response[:user]).to be_present
+      end
     end
   end
 
