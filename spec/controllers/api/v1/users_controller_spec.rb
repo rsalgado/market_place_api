@@ -12,7 +12,7 @@ describe Api::V1::UsersController do
     it { should respond_with 200 }
 
     it "returns the information about a reporter on a hash" do
-      user_response = json_response
+      user_response = json_response[:user]
       expect(user_response[:email]).to eql @user.email
     end
   end
@@ -27,7 +27,7 @@ describe Api::V1::UsersController do
       it { should respond_with 201 }
 
       it "renders the json response" do
-        user_response = json_response
+        user_response = json_response[:user]
         expect(user_response[:email]).to eql @users_attributes[:email]
       end
     end
@@ -68,7 +68,7 @@ describe Api::V1::UsersController do
       it { should respond_with 200 }
 
       it "renders the JSON representation for the updated user" do
-        user_response = json_response
+        user_response = json_response[:user]
         expect(user_response[:email]).to eql "newmail@example.com"
       end
     end
