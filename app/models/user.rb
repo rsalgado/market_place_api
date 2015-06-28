@@ -6,10 +6,13 @@ class User < ActiveRecord::Base
 
   # Callbacks
   before_create :generate_authentication_token!
+
   # Validations
   validates :auth_token, uniqueness: true
+  
   # Associations
   has_many :products, dependent: :destroy
+  has_many :orders, dependent: :destroy
 
   def generate_authentication_token!
     begin
