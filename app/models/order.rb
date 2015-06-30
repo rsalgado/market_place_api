@@ -13,7 +13,9 @@ class Order < ActiveRecord::Base
 
 
   def set_total!
-    self.total = products.map(&:price).sum
+    self.total = placements.reduce(0) do |total, placement|
+      total + placement.product.price * placement.quantity
+    end
   end
 
   def build_placements_with_product_ids_and_quantities(product_ids_and_quantities)
