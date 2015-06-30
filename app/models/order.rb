@@ -6,6 +6,7 @@ class Order < ActiveRecord::Base
   
   # Validations
   validates :user_id, presence: true
+  validates_with EnoughProductsValidator
 
   # Callbacks
   before_validation :set_total!
