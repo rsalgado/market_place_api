@@ -44,6 +44,7 @@ end
 group :test do
   gem "rspec-rails", "~> 2.14"
   gem "shoulda"
+  gem "email_spec"
 end
 
 gem "active_model_serializers"
