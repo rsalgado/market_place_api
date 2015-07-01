@@ -50,6 +50,7 @@ end
 gem "active_model_serializers"
 gem "devise"
 gem "kaminari"
+gem "delayed_job_active_record"
 
 gem "sabisu_rails", github: "IcaliaLabs/sabisu-rails"
 
