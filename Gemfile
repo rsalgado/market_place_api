@@ -49,6 +49,7 @@ end
 
 gem "active_model_serializers"
 gem "devise"
+gem "kaminari"
 
 gem "sabisu_rails", github: "IcaliaLabs/sabisu-rails"
 
