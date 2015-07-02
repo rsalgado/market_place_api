@@ -12,7 +12,7 @@ describe Authenticable do
     before do
       @user = FactoryGirl.create :user
       request.headers["Authorization"] = @user.auth_token
-      authentication.stub(:request).and_return(request)
+      allow(authentication).to receive_messages(request: request)
     end
 
     it "returns the user from the authorization header" do
@@ -24,10 +24,10 @@ describe Authenticable do
   describe "#authenticate_with_token!" do
     before do
       @user = FactoryGirl.create(:user)
-      authentication.stub(:current_user).and_return(nil)
-      response.stub(:response_code).and_return(401)
-      response.stub(:body).and_return({"errors" => "Not authenticated"}.to_json)
-      authentication.stub(:response).and_return(response)
+      allow(authentication).to receive_messages(current_user: nil)
+      allow(response).to receive_messages(response_code: 401,
+                                          body: {"errors" => "Not authenticated"}.to_json)
+      allow(authentication).to receive_messages(response: response)
     end
 
     it { should respond_with 401 }
@@ -41,7 +41,7 @@ describe Authenticable do
     context "when there is a user on 'session'" do
       before do
         @user = FactoryGirl.create(:user)
-        authentication.stub(:current_user).and_return(@user)
+        allow(authentication).to receive_messages(current_user: @user)
       end
 
       it { should be_user_signed_in }
@@ -50,7 +50,7 @@ describe Authenticable do
     context "when there is no user on 'session'" do
       before do
         @user = FactoryGirl.create(:user)
-        authentication.stub(:current_user).and_return(nil)
+        allow(authentication).to receive_messages(current_user: nil)
       end
 
       it { should_not be_user_signed_in }
